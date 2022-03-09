@@ -1,18 +1,24 @@
-from PIL.ExifTags import TAGS
+"""
+Image meta data
+
+This program gives you the embedded meta data of the given image
+
+"""
+
+from PIL.ExifTags import TAGS # Nessacary imports
 from PIL import Image
 import os
 
-imagename = "image2.jpg"
-imagen = os.path.abspath(imagename)
-print(imagen)
-image = Image.open(imagen)
+imagename = "image.jpg" #image path
+imagen = os.path.abspath(imagename) #Gets the absolute path of the image
+image = Image.open(imagen) #Opens the image and gives a image object
 
-exifdata = image.getexif()
+exifdata = image.getexif() # Gets the exif data of the image (meta data)
 
-for tag_id in exifdata:
-    tag = TAGS.get(tag_id, tag_id)
-    data = exifdata.get(tag_id) 
+for tag_id in exifdata: #loops through the exif data
+    tag = TAGS.get(tag_id, tag_id) # Gets the data tags
+    data = exifdata.get(tag_id)  # Gets the data inside it 
     if isinstance(data, bytes):
-        data = data.decode()
-    print(f"{tag:25}: {data}")
+        data = data.decode() # decodes the data
+    print(f"{tag:25}: {data}") #prints the meta-data
     
